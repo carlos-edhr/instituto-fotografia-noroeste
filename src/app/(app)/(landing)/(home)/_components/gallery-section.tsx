@@ -517,7 +517,6 @@ const GallerySection: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
       {/* Footer Note */}
       <motion.div
         initial={{ opacity: 0 }}
