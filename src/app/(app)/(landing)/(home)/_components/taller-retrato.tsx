@@ -64,7 +64,7 @@ export function TallerRetratoSection() {
 
           <p className="text-light text-gray-100 max-w-2xl mx-auto text-lg">
             Domina las técnicas avanzadas de iluminación y producción para crear
-            retratos impactantes en estudio y exterior
+            retratos impactantes en estudio y exterior.
           </p>
         </motion.div>
 
