@@ -154,7 +154,7 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`p-2 rounded-md transition-all duration-300 ${
-                scrolled ? "text-white" : "text-black"
+                scrolled ? "text-white" : "text-red-500"
               } hover:text-red-500 focus:outline-none`}
             >
               {isOpen ? (

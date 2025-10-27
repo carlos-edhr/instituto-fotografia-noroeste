@@ -3,7 +3,7 @@ import React from "react";
 import Hero from "./_components/hero";
 import { CursoNivel2Section } from "./_components/curso-nivel-2";
 import { TallerLightroomSection } from "./_components/taller-light-room";
-import { TallerRetratoSection } from "./_components/taller-retrato";
+// import { TallerRetratoSection } from "./_components/taller-retrato";
 import { CursosPrivadosSection } from "./_components/cursos-privados";
 import Footer from "./_components/footer";
 import GallerySection from "./_components/gallery-section";
@@ -26,7 +26,7 @@ const LandingPage = () => {
       <div className="bg-black w-screen h-48 sm:h-80" />
       <CursoNivel2Section />
       <TallerLightroomSection />
-      <TallerRetratoSection />
+      {/* <TallerRetratoSection /> */}
       <GallerySection />
       <CursosPrivadosSection />
       <Footer />
