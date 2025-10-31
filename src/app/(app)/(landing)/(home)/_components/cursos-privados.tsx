@@ -72,14 +72,14 @@ export function CursosPrivadosSection() {
               <TabsList className="grid w-full grid-cols-2 mb-8 bg-black/50 border border-red-900/30 p-1 rounded-lg">
                 <TabsTrigger
                   value="presencial"
-                  className="data-[state=active]:bg-red-600 data-[state=active]:text-white transition-all flex items-center gap-2"
+                  className="text-gray-300 hover:text-white data-[state=active]:bg-red-600 data-[state=active]:text-white transition-all flex items-center gap-2"
                 >
                   <Home className="w-4 h-4" />
                   Modalidad Presencial
                 </TabsTrigger>
                 <TabsTrigger
                   value="virtual"
-                  className="data-[state=active]:bg-red-600 data-[state=active]:text-white transition-all flex items-center gap-2"
+                  className="text-gray-300 hover:text-white data-[state=active]:bg-red-600 data-[state=active]:text-white transition-all flex items-center gap-2"
                 >
                   <Laptop className="w-4 h-4" />
                   Modalidad Virtual

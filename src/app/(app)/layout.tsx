@@ -27,7 +27,10 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  title: "Instituto de Fotografía del Noroeste",
+  title: {
+    default: "Instituto de Fotografía del Noroeste",
+    template: "%s | Mi Sitio",
+  },
   description:
     "Escuela especializada en fotografía con sede en Tijuana, Baja California, México. ",
 };

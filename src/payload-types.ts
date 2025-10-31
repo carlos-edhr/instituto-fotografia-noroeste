@@ -72,6 +72,7 @@ export interface Config {
     categories: Category;
     products: Product;
     tags: Tag;
+    pages: Page;
     orders: Order;
     reviews: Review;
     'payload-locked-documents': PayloadLockedDocument;
@@ -89,6 +90,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     orders: OrdersSelect<false> | OrdersSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -98,8 +100,14 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    header: Header;
+    footer: Footer;
+  };
+  globalsSelect: {
+    header: HeaderSelect<false> | HeaderSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -274,6 +282,323 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: string;
+  title: string;
+  slug: string;
+  status?: ('published' | 'draft') | null;
+  layout?:
+    | (
+        | {
+            title: string;
+            /**
+             * Texto que aparece en rojo (ej: 'Fotografía')
+             */
+            highlightedText?: string | null;
+            subtitle?: string | null;
+            backgroundImages?:
+              | {
+                  image: string | Media;
+                  altText?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            videoSection?: {
+              enableVideo?: boolean | null;
+              videoFile?: (string | null) | Media;
+              /**
+               * URL externa del video (opcional si se sube archivo)
+               */
+              videoUrl?: string | null;
+            };
+            ctaButton?: {
+              enableCta?: boolean | null;
+              text?: string | null;
+              link?: string | null;
+            };
+            logoCarousel?: {
+              enableLogos?: boolean | null;
+              logos?:
+                | {
+                    logo: string | Media;
+                    altText?: string | null;
+                    link?: string | null;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            styling?: {
+              textColor?: ('white' | 'black' | 'gray') | null;
+              /**
+               * Porcentaje de opacidad (0-100)
+               */
+              overlayOpacity?: number | null;
+              minHeight?: ('screen' | '75' | '50') | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            richText: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            width?: ('narrow' | 'medium' | 'wide' | 'full') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'content';
+          }
+        | {
+            media: string | Media;
+            caption?: string | null;
+            alignment?: ('left' | 'center' | 'right') | null;
+            size?: ('small' | 'medium' | 'large' | 'full') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'media';
+          }
+        | {
+            header: {
+              badge?: string | null;
+              title: string;
+              subtitle?: string | null;
+              description?: string | null;
+            };
+            courseInfo?: {
+              startDate?: string | null;
+              schedule?: string | null;
+              instructor?: {
+                name?: string | null;
+                link?: string | null;
+              };
+              price?: string | null;
+              paymentDescription?: string | null;
+            };
+            syllabus?:
+              | {
+                  item: string;
+                  id?: string | null;
+                }[]
+              | null;
+            requirements?:
+              | {
+                  requirement: string;
+                  id?: string | null;
+                }[]
+              | null;
+            paymentMethods?: {
+              bankTransfer?: {
+                bankName?: string | null;
+                accountHolder?: string | null;
+                accountNumber?: string | null;
+                clabe?: string | null;
+              };
+              oxxo?: {
+                cardNumber?: string | null;
+              };
+              paypal?: {
+                link?: string | null;
+              };
+              zelle?: {
+                email?: string | null;
+                name?: string | null;
+              };
+            };
+            location?: {
+              mapEmbed?: string | null;
+              address?: string | null;
+            };
+            additionalInfo?: {
+              duration?: string | null;
+              sessions?: string | null;
+              includes?: string | null;
+            };
+            enrollmentLink?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'curso-uno';
+          }
+        | {
+            header: {
+              badge?: string | null;
+              title: string;
+              subtitle?: string | null;
+              description?: string | null;
+            };
+            quickInfo?:
+              | {
+                  icon: 'calendar' | 'clock' | 'user' | 'creditcard';
+                  title: string;
+                  description: string;
+                  link?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            mainContent?: {
+              duration?: string | null;
+              durationDetails?: string | null;
+              includes?:
+                | {
+                    item: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              price?: string | null;
+              instructorName?: string | null;
+              instructorLink?: string | null;
+            };
+            syllabus?:
+              | {
+                  item: string;
+                  id?: string | null;
+                }[]
+              | null;
+            requirements?:
+              | {
+                  requirement: string;
+                  id?: string | null;
+                }[]
+              | null;
+            paymentMethods?: {
+              bankTransfer?: {
+                bankName?: string | null;
+                accountHolder?: string | null;
+                accountNumber?: string | null;
+                clabe?: string | null;
+              };
+              oxxo?: {
+                cardNumber?: string | null;
+              };
+              paypal?: {
+                link?: string | null;
+              };
+              zelle?: {
+                email?: string | null;
+                name?: string | null;
+              };
+            };
+            location?: {
+              mapEmbed?: string | null;
+              venue?: string | null;
+              address?: string | null;
+            };
+            enrollmentLink?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'curso-dos';
+          }
+        | {
+            header: {
+              badge?: string | null;
+              title: string;
+              subtitle?: string | null;
+              description?: string | null;
+            };
+            instructor?: {
+              name?: string | null;
+              link?: string | null;
+            };
+            courseInfo?: {
+              price?: string | null;
+              paymentDescription?: string | null;
+              startDate?: string | null;
+              schedule?: string | null;
+              duration?: string | null;
+              endDate?: string | null;
+            };
+            syllabus?:
+              | {
+                  item: string;
+                  id?: string | null;
+                }[]
+              | null;
+            learningPoints?:
+              | {
+                  point: string;
+                  id?: string | null;
+                }[]
+              | null;
+            paymentMethods?: {
+              bankTransfer?: {
+                bankName?: string | null;
+                accountHolder?: string | null;
+                accountNumber?: string | null;
+                clabe?: string | null;
+              };
+              oxxo?: {
+                cardNumber?: string | null;
+              };
+              paypal?: {
+                link?: string | null;
+              };
+              zelle?: {
+                email?: string | null;
+                name?: string | null;
+              };
+            };
+            location?: {
+              mapEmbed?: string | null;
+              venue?: string | null;
+              address?: string | null;
+            };
+            enrollmentLink?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'curso-tres';
+          }
+        | {
+            header: {
+              badge?: string | null;
+              title: string;
+              subtitle?: string | null;
+              description?: string | null;
+            };
+            galleryItems?:
+              | {
+                  image: string | Media;
+                  title: string;
+                  description?: string | null;
+                  year?: number | null;
+                  courseName?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            pagination?: {
+              itemsPerPageDesktop?: number | null;
+              itemsPerPageMobile?: number | null;
+            };
+            footerText?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'galeria';
+          }
+      )[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (string | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "orders".
  */
 export interface Order {
@@ -331,6 +656,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: string | Tag;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
       } | null)
     | ({
         relationTo: 'orders';
@@ -477,6 +806,374 @@ export interface TagsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  status?: T;
+  layout?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              title?: T;
+              highlightedText?: T;
+              subtitle?: T;
+              backgroundImages?:
+                | T
+                | {
+                    image?: T;
+                    altText?: T;
+                    id?: T;
+                  };
+              videoSection?:
+                | T
+                | {
+                    enableVideo?: T;
+                    videoFile?: T;
+                    videoUrl?: T;
+                  };
+              ctaButton?:
+                | T
+                | {
+                    enableCta?: T;
+                    text?: T;
+                    link?: T;
+                  };
+              logoCarousel?:
+                | T
+                | {
+                    enableLogos?: T;
+                    logos?:
+                      | T
+                      | {
+                          logo?: T;
+                          altText?: T;
+                          link?: T;
+                          id?: T;
+                        };
+                  };
+              styling?:
+                | T
+                | {
+                    textColor?: T;
+                    overlayOpacity?: T;
+                    minHeight?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        content?:
+          | T
+          | {
+              richText?: T;
+              width?: T;
+              id?: T;
+              blockName?: T;
+            };
+        media?:
+          | T
+          | {
+              media?: T;
+              caption?: T;
+              alignment?: T;
+              size?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'curso-uno'?:
+          | T
+          | {
+              header?:
+                | T
+                | {
+                    badge?: T;
+                    title?: T;
+                    subtitle?: T;
+                    description?: T;
+                  };
+              courseInfo?:
+                | T
+                | {
+                    startDate?: T;
+                    schedule?: T;
+                    instructor?:
+                      | T
+                      | {
+                          name?: T;
+                          link?: T;
+                        };
+                    price?: T;
+                    paymentDescription?: T;
+                  };
+              syllabus?:
+                | T
+                | {
+                    item?: T;
+                    id?: T;
+                  };
+              requirements?:
+                | T
+                | {
+                    requirement?: T;
+                    id?: T;
+                  };
+              paymentMethods?:
+                | T
+                | {
+                    bankTransfer?:
+                      | T
+                      | {
+                          bankName?: T;
+                          accountHolder?: T;
+                          accountNumber?: T;
+                          clabe?: T;
+                        };
+                    oxxo?:
+                      | T
+                      | {
+                          cardNumber?: T;
+                        };
+                    paypal?:
+                      | T
+                      | {
+                          link?: T;
+                        };
+                    zelle?:
+                      | T
+                      | {
+                          email?: T;
+                          name?: T;
+                        };
+                  };
+              location?:
+                | T
+                | {
+                    mapEmbed?: T;
+                    address?: T;
+                  };
+              additionalInfo?:
+                | T
+                | {
+                    duration?: T;
+                    sessions?: T;
+                    includes?: T;
+                  };
+              enrollmentLink?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'curso-dos'?:
+          | T
+          | {
+              header?:
+                | T
+                | {
+                    badge?: T;
+                    title?: T;
+                    subtitle?: T;
+                    description?: T;
+                  };
+              quickInfo?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
+                    description?: T;
+                    link?: T;
+                    id?: T;
+                  };
+              mainContent?:
+                | T
+                | {
+                    duration?: T;
+                    durationDetails?: T;
+                    includes?:
+                      | T
+                      | {
+                          item?: T;
+                          id?: T;
+                        };
+                    price?: T;
+                    instructorName?: T;
+                    instructorLink?: T;
+                  };
+              syllabus?:
+                | T
+                | {
+                    item?: T;
+                    id?: T;
+                  };
+              requirements?:
+                | T
+                | {
+                    requirement?: T;
+                    id?: T;
+                  };
+              paymentMethods?:
+                | T
+                | {
+                    bankTransfer?:
+                      | T
+                      | {
+                          bankName?: T;
+                          accountHolder?: T;
+                          accountNumber?: T;
+                          clabe?: T;
+                        };
+                    oxxo?:
+                      | T
+                      | {
+                          cardNumber?: T;
+                        };
+                    paypal?:
+                      | T
+                      | {
+                          link?: T;
+                        };
+                    zelle?:
+                      | T
+                      | {
+                          email?: T;
+                          name?: T;
+                        };
+                  };
+              location?:
+                | T
+                | {
+                    mapEmbed?: T;
+                    venue?: T;
+                    address?: T;
+                  };
+              enrollmentLink?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'curso-tres'?:
+          | T
+          | {
+              header?:
+                | T
+                | {
+                    badge?: T;
+                    title?: T;
+                    subtitle?: T;
+                    description?: T;
+                  };
+              instructor?:
+                | T
+                | {
+                    name?: T;
+                    link?: T;
+                  };
+              courseInfo?:
+                | T
+                | {
+                    price?: T;
+                    paymentDescription?: T;
+                    startDate?: T;
+                    schedule?: T;
+                    duration?: T;
+                    endDate?: T;
+                  };
+              syllabus?:
+                | T
+                | {
+                    item?: T;
+                    id?: T;
+                  };
+              learningPoints?:
+                | T
+                | {
+                    point?: T;
+                    id?: T;
+                  };
+              paymentMethods?:
+                | T
+                | {
+                    bankTransfer?:
+                      | T
+                      | {
+                          bankName?: T;
+                          accountHolder?: T;
+                          accountNumber?: T;
+                          clabe?: T;
+                        };
+                    oxxo?:
+                      | T
+                      | {
+                          cardNumber?: T;
+                        };
+                    paypal?:
+                      | T
+                      | {
+                          link?: T;
+                        };
+                    zelle?:
+                      | T
+                      | {
+                          email?: T;
+                          name?: T;
+                        };
+                  };
+              location?:
+                | T
+                | {
+                    mapEmbed?: T;
+                    venue?: T;
+                    address?: T;
+                  };
+              enrollmentLink?: T;
+              id?: T;
+              blockName?: T;
+            };
+        galeria?:
+          | T
+          | {
+              header?:
+                | T
+                | {
+                    badge?: T;
+                    title?: T;
+                    subtitle?: T;
+                    description?: T;
+                  };
+              galleryItems?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    description?: T;
+                    year?: T;
+                    courseName?: T;
+                    id?: T;
+                  };
+              pagination?:
+                | T
+                | {
+                    itemsPerPageDesktop?: T;
+                    itemsPerPageMobile?: T;
+                  };
+              footerText?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "orders_select".
  */
 export interface OrdersSelect<T extends boolean = true> {
@@ -531,6 +1228,116 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: string;
+  navItems?:
+    | {
+        label: string;
+        link: string;
+        type?: ('internal' | 'external' | 'section') | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaButton?: {
+    enable?: boolean | null;
+    text?: string | null;
+    link?: string | null;
+  };
+  logo: string | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  columns?:
+    | {
+        title?: string | null;
+        links?:
+          | {
+              label: string;
+              link: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  socialLinks?:
+    | {
+        platform: 'instagram' | 'facebook' | 'twitter' | 'youtube' | 'linkedin';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  copyright: string;
+  logo?: (string | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  navItems?:
+    | T
+    | {
+        label?: T;
+        link?: T;
+        type?: T;
+        id?: T;
+      };
+  ctaButton?:
+    | T
+    | {
+        enable?: T;
+        text?: T;
+        link?: T;
+      };
+  logo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  columns?:
+    | T
+    | {
+        title?: T;
+        links?:
+          | T
+          | {
+              label?: T;
+              link?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  copyright?: T;
+  logo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

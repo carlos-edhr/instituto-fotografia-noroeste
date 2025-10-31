@@ -13,12 +13,15 @@ import { Media } from "./collections/Media";
 import { Categories } from "./collections/Categories";
 import { Products } from "./collections/Products";
 import { Tags } from "./collections/Tags";
+import { Pages } from "./collections/Pages";
 // import { Tenants } from "./collections/Tenants";
 // import { Config } from "./payload-types";
 import { Orders } from "./collections/Orders";
 import { Reviews } from "./collections/Reviews";
 // import { isSuperAdmin } from "./lib/access";
 import { resendAdapter } from "@payloadcms/email-resend";
+import { Header } from "./globals/Header";
+import { Footer } from "./globals/Footer";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -35,7 +38,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     components: {
-      beforeNavLinks: ["@/components/stripe-verify#StripeVerify"],
+      beforeNavLinks: [],
     },
   },
   collections: [
@@ -44,9 +47,15 @@ export default buildConfig({
     Categories,
     Products,
     Tags,
+    Pages,
     // Tenants,
     Orders,
     Reviews,
+  ],
+  globals: [
+    Header,
+    Footer,
+    // ... otros globales si los tienes
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
