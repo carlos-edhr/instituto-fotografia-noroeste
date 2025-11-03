@@ -16,6 +16,42 @@ export const Pages: CollectionConfig = {
   versions: {
     drafts: true,
   },
+  hooks: {
+    afterChange: [
+      async ({ doc }) => {
+        // Solo para páginas publicadas
+        if (doc.status === "published") {
+          try {
+            // Revalidar la página específica y la home
+            await fetch(
+              `${process.env.NEXT_PUBLIC_APP_URL}/api/revalidate?secret=${process.env.REVALIDATION_TOKEN}&path=/${doc.slug}`,
+            );
+
+            // También revalidar la home page si es necesario
+            if (doc.slug === "landing-page") {
+              await fetch(
+                `${process.env.NEXT_PUBLIC_APP_URL}/api/revalidate?secret=${process.env.REVALIDATION_TOKEN}&path=/`,
+              );
+            }
+          } catch (error) {
+            console.error("Error revalidating page:", error);
+          }
+        }
+      },
+    ],
+    afterDelete: [
+      async ({ doc }) => {
+        try {
+          // Invalidar cache cuando se elimina una página
+          await fetch(
+            `${process.env.NEXT_PUBLIC_APP_URL}/api/revalidate?secret=${process.env.REVALIDATION_TOKEN}&path=/${doc.slug}`,
+          );
+        } catch (error) {
+          console.error("Error revalidating after delete:", error);
+        }
+      },
+    ],
+  },
   fields: [
     {
       name: "title",

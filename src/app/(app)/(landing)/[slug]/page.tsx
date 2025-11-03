@@ -24,7 +24,7 @@ async function getPage(slug: string) {
           },
         ],
       },
-      depth: 3, // Importante para obtener relaciones como imágenes
+      depth: 3,
     });
 
     if (!pages.docs || pages.docs.length === 0) {
@@ -47,7 +47,6 @@ interface PageProps {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  // Await params antes de usarlos
   const { slug } = await params;
   const page = await getPage(slug);
 
@@ -69,8 +68,11 @@ export async function generateMetadata({
   };
 }
 
+// ⚠️ IMPORTANTE: Deshabilitar la generación estática para páginas dinámicas
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function DynamicPage({ params }: PageProps) {
-  // Await params antes de usarlos
   const { slug } = await params;
   const page = await getPage(slug);
 
@@ -80,7 +82,6 @@ export default async function DynamicPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen">
-      {/* Header opcional - puedes personalizar según tus necesidades */}
       {page.layout && page.layout.length > 0 ? (
         <RenderBlocks blocks={page.layout} />
       ) : (
@@ -108,6 +109,9 @@ export default async function DynamicPage({ params }: PageProps) {
   );
 }
 
+// ⚠️ COMENTAR o ELIMINAR generateStaticParams para páginas dinámicas
+// Esto fuerza a que las páginas se generen en el servidor en cada request
+/*
 export async function generateStaticParams() {
   try {
     const payload = await getPayload({ config });
@@ -130,3 +134,4 @@ export async function generateStaticParams() {
     return [];
   }
 }
+*/
