@@ -35,7 +35,6 @@ export const HeroBlockComponent: React.FC<HeroBlock> = (props) => {
       );
     }
   }, []);
-
   // Carrusel automático de imágenes de fondo
   useEffect(() => {
     if (backgroundImages.length > 1) {
