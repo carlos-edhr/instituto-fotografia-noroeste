@@ -297,6 +297,10 @@ export interface Page {
              * Texto que aparece en rojo (ej: 'Fotografía')
              */
             highlightedText?: string | null;
+            /**
+             * Texto que aparece después del texto destacado
+             */
+            titleSecondPart?: string | null;
             subtitle?: string | null;
             backgroundImages?:
               | {
@@ -400,24 +404,21 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            paymentMethods?: {
-              bankTransfer?: {
-                bankName?: string | null;
-                accountHolder?: string | null;
-                accountNumber?: string | null;
-                clabe?: string | null;
+            richText?: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
               };
-              oxxo?: {
-                cardNumber?: string | null;
-              };
-              paypal?: {
-                link?: string | null;
-              };
-              zelle?: {
-                email?: string | null;
-                name?: string | null;
-              };
-            };
+              [k: string]: unknown;
+            } | null;
             location?: {
               mapEmbed?: string | null;
               address?: string | null;
@@ -473,24 +474,21 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            paymentMethods?: {
-              bankTransfer?: {
-                bankName?: string | null;
-                accountHolder?: string | null;
-                accountNumber?: string | null;
-                clabe?: string | null;
+            richText?: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
               };
-              oxxo?: {
-                cardNumber?: string | null;
-              };
-              paypal?: {
-                link?: string | null;
-              };
-              zelle?: {
-                email?: string | null;
-                name?: string | null;
-              };
-            };
+              [k: string]: unknown;
+            } | null;
             location?: {
               mapEmbed?: string | null;
               venue?: string | null;
@@ -532,24 +530,21 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            paymentMethods?: {
-              bankTransfer?: {
-                bankName?: string | null;
-                accountHolder?: string | null;
-                accountNumber?: string | null;
-                clabe?: string | null;
+            detalles?: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
               };
-              oxxo?: {
-                cardNumber?: string | null;
-              };
-              paypal?: {
-                link?: string | null;
-              };
-              zelle?: {
-                email?: string | null;
-                name?: string | null;
-              };
-            };
+              [k: string]: unknown;
+            } | null;
             location?: {
               mapEmbed?: string | null;
               venue?: string | null;
@@ -585,6 +580,182 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'galeria';
+          }
+        | {
+            headerBadge: string;
+            headerTitle: string;
+            headerSubtitle: string;
+            headerDescription: string;
+            presencialDuration: string;
+            presencialDescription: string;
+            presencialPricing?:
+              | {
+                  students: string;
+                  price: string;
+                  id?: string | null;
+                }[]
+              | null;
+            presencialNote: string;
+            virtualDuration: string;
+            virtualDescription: string;
+            virtualPricing?:
+              | {
+                  students: string;
+                  price: string;
+                  id?: string | null;
+                }[]
+              | null;
+            asesoriasTitle: string;
+            asesoriasDescription: string;
+            asesoriaPresencialTitle: string;
+            asesoriaPresencialPrice: string;
+            asesoriaPresencialDescription: string;
+            asesoriaVirtualTitle: string;
+            asesoriaVirtualPrice: string;
+            asesoriaVirtualDescription: string;
+            contactTitle: string;
+            contactDescription: string;
+            email: string;
+            phone: string;
+            emailButtonText: string;
+            phoneButtonText: string;
+            footerNote: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'CursosPrivados';
+          }
+        | {
+            style?: ('info' | 'warning' | 'success' | 'error') | null;
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            enableCTA?: boolean | null;
+            ctaText?: string | null;
+            ctaLink?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'Banner';
+          }
+        | {
+            richText: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            buttons?:
+              | {
+                  label: string;
+                  link: string;
+                  type?: ('primary' | 'secondary' | 'outline') | null;
+                  icon?: ('none' | 'arrowRight' | 'calendar' | 'phone' | 'mail') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            style?: {
+              background?: ('gradient' | 'solid' | 'image') | null;
+              alignment?: ('center' | 'left') | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'CallToAction';
+          }
+        | {
+            header: {
+              badge?: string | null;
+              title: string;
+              subtitle?: string | null;
+              description?: string | null;
+            };
+            backgroundMedia: {
+              backgroundImage: string | Media;
+              backgroundVideo?: (string | null) | Media;
+              overlayOpacity?: number | null;
+            };
+            ctaButtons?:
+              | {
+                  text: string;
+                  link: string;
+                  type?: ('primary' | 'secondary') | null;
+                  icon?: ('arrow' | 'calendar' | 'phone') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            stats?:
+              | {
+                  number: string;
+                  label: string;
+                  suffix?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            styling?: {
+              minHeight?: ('screen' | '75' | '50') | null;
+              textAlignment?: ('center' | 'left') | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'HighImpactHero';
+          }
+        | {
+            header: {
+              badge?: string | null;
+              title: string;
+              description?: string | null;
+            };
+            features?:
+              | {
+                  icon?: ('clock' | 'calendar' | 'user' | 'award') | null;
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            ctaButton: {
+              text: string;
+              link: string;
+            };
+            backgroundImage?: (string | null) | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'MediumImpactHero';
+          }
+        | {
+            header: {
+              title: string;
+              description?: string | null;
+            };
+            ctaButton?: {
+              text?: string | null;
+              link?: string | null;
+            };
+            styling?: {
+              background?: ('gradient' | 'solid') | null;
+              textAlignment?: ('center' | 'left') | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'LowImpactHero';
           }
       )[]
     | null;
@@ -820,6 +991,7 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               title?: T;
               highlightedText?: T;
+              titleSecondPart?: T;
               subtitle?: T;
               backgroundImages?:
                 | T
@@ -920,34 +1092,7 @@ export interface PagesSelect<T extends boolean = true> {
                     requirement?: T;
                     id?: T;
                   };
-              paymentMethods?:
-                | T
-                | {
-                    bankTransfer?:
-                      | T
-                      | {
-                          bankName?: T;
-                          accountHolder?: T;
-                          accountNumber?: T;
-                          clabe?: T;
-                        };
-                    oxxo?:
-                      | T
-                      | {
-                          cardNumber?: T;
-                        };
-                    paypal?:
-                      | T
-                      | {
-                          link?: T;
-                        };
-                    zelle?:
-                      | T
-                      | {
-                          email?: T;
-                          name?: T;
-                        };
-                  };
+              richText?: T;
               location?:
                 | T
                 | {
@@ -1012,34 +1157,7 @@ export interface PagesSelect<T extends boolean = true> {
                     requirement?: T;
                     id?: T;
                   };
-              paymentMethods?:
-                | T
-                | {
-                    bankTransfer?:
-                      | T
-                      | {
-                          bankName?: T;
-                          accountHolder?: T;
-                          accountNumber?: T;
-                          clabe?: T;
-                        };
-                    oxxo?:
-                      | T
-                      | {
-                          cardNumber?: T;
-                        };
-                    paypal?:
-                      | T
-                      | {
-                          link?: T;
-                        };
-                    zelle?:
-                      | T
-                      | {
-                          email?: T;
-                          name?: T;
-                        };
-                  };
+              richText?: T;
               location?:
                 | T
                 | {
@@ -1090,34 +1208,7 @@ export interface PagesSelect<T extends boolean = true> {
                     point?: T;
                     id?: T;
                   };
-              paymentMethods?:
-                | T
-                | {
-                    bankTransfer?:
-                      | T
-                      | {
-                          bankName?: T;
-                          accountHolder?: T;
-                          accountNumber?: T;
-                          clabe?: T;
-                        };
-                    oxxo?:
-                      | T
-                      | {
-                          cardNumber?: T;
-                        };
-                    paypal?:
-                      | T
-                      | {
-                          link?: T;
-                        };
-                    zelle?:
-                      | T
-                      | {
-                          email?: T;
-                          name?: T;
-                        };
-                  };
+              detalles?: T;
               location?:
                 | T
                 | {
@@ -1157,6 +1248,178 @@ export interface PagesSelect<T extends boolean = true> {
                     itemsPerPageMobile?: T;
                   };
               footerText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        CursosPrivados?:
+          | T
+          | {
+              headerBadge?: T;
+              headerTitle?: T;
+              headerSubtitle?: T;
+              headerDescription?: T;
+              presencialDuration?: T;
+              presencialDescription?: T;
+              presencialPricing?:
+                | T
+                | {
+                    students?: T;
+                    price?: T;
+                    id?: T;
+                  };
+              presencialNote?: T;
+              virtualDuration?: T;
+              virtualDescription?: T;
+              virtualPricing?:
+                | T
+                | {
+                    students?: T;
+                    price?: T;
+                    id?: T;
+                  };
+              asesoriasTitle?: T;
+              asesoriasDescription?: T;
+              asesoriaPresencialTitle?: T;
+              asesoriaPresencialPrice?: T;
+              asesoriaPresencialDescription?: T;
+              asesoriaVirtualTitle?: T;
+              asesoriaVirtualPrice?: T;
+              asesoriaVirtualDescription?: T;
+              contactTitle?: T;
+              contactDescription?: T;
+              email?: T;
+              phone?: T;
+              emailButtonText?: T;
+              phoneButtonText?: T;
+              footerNote?: T;
+              id?: T;
+              blockName?: T;
+            };
+        Banner?:
+          | T
+          | {
+              style?: T;
+              content?: T;
+              enableCTA?: T;
+              ctaText?: T;
+              ctaLink?: T;
+              id?: T;
+              blockName?: T;
+            };
+        CallToAction?:
+          | T
+          | {
+              richText?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    link?: T;
+                    type?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              style?:
+                | T
+                | {
+                    background?: T;
+                    alignment?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        HighImpactHero?:
+          | T
+          | {
+              header?:
+                | T
+                | {
+                    badge?: T;
+                    title?: T;
+                    subtitle?: T;
+                    description?: T;
+                  };
+              backgroundMedia?:
+                | T
+                | {
+                    backgroundImage?: T;
+                    backgroundVideo?: T;
+                    overlayOpacity?: T;
+                  };
+              ctaButtons?:
+                | T
+                | {
+                    text?: T;
+                    link?: T;
+                    type?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              stats?:
+                | T
+                | {
+                    number?: T;
+                    label?: T;
+                    suffix?: T;
+                    id?: T;
+                  };
+              styling?:
+                | T
+                | {
+                    minHeight?: T;
+                    textAlignment?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        MediumImpactHero?:
+          | T
+          | {
+              header?:
+                | T
+                | {
+                    badge?: T;
+                    title?: T;
+                    description?: T;
+                  };
+              features?:
+                | T
+                | {
+                    icon?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              ctaButton?:
+                | T
+                | {
+                    text?: T;
+                    link?: T;
+                  };
+              backgroundImage?: T;
+              id?: T;
+              blockName?: T;
+            };
+        LowImpactHero?:
+          | T
+          | {
+              header?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              ctaButton?:
+                | T
+                | {
+                    text?: T;
+                    link?: T;
+                  };
+              styling?:
+                | T
+                | {
+                    background?: T;
+                    textAlignment?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -1243,11 +1506,23 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
-  ctaButton?: {
-    enable?: boolean | null;
-    text?: string | null;
-    link?: string | null;
-  };
+  socialLinks?:
+    | {
+        platform: 'instagram' | 'facebook' | 'email' | 'youtube' | 'twitter' | 'linkedin';
+        url: string;
+        enable?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaButtons?:
+    | {
+        text: string;
+        link: string;
+        type?: ('primary' | 'secondary') | null;
+        enable?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
   logo: string | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1296,12 +1571,22 @@ export interface HeaderSelect<T extends boolean = true> {
         type?: T;
         id?: T;
       };
-  ctaButton?:
+  socialLinks?:
     | T
     | {
+        platform?: T;
+        url?: T;
         enable?: T;
+        id?: T;
+      };
+  ctaButtons?:
+    | T
+    | {
         text?: T;
         link?: T;
+        type?: T;
+        enable?: T;
+        id?: T;
       };
   logo?: T;
   updatedAt?: T;

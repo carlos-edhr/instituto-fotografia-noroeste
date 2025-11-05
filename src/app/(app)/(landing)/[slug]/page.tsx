@@ -81,7 +81,7 @@ export default async function DynamicPage({ params }: PageProps) {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="w-full h-full bg-black">
       {page.layout && page.layout.length > 0 ? (
         <RenderBlocks blocks={page.layout} />
       ) : (

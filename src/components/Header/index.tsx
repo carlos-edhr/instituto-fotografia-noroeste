@@ -3,12 +3,31 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import {
+  Menu,
+  X,
+  Instagram,
+  Facebook,
+  Mail,
+  Youtube,
+  Twitter,
+  Linkedin,
+} from "lucide-react";
 import type { Header as HeaderType } from "@/payload-types";
 
 interface Props {
   data: HeaderType;
 }
+
+// Mapeo de plataformas de redes sociales a iconos
+const socialIcons = {
+  instagram: Instagram,
+  facebook: Facebook,
+  email: Mail,
+  youtube: Youtube,
+  twitter: Twitter,
+  linkedin: Linkedin,
+};
 
 export const Header: React.FC<Props> = ({ data }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -37,6 +56,14 @@ export const Header: React.FC<Props> = ({ data }) => {
 
   if (!data) return null;
 
+  // Filtrar redes sociales habilitadas
+  const enabledSocialLinks =
+    data.socialLinks?.filter((social) => social.enable !== false) || [];
+
+  // Filtrar botones habilitados
+  const enabledButtons =
+    data.ctaButtons?.filter((button) => button.enable !== false) || [];
+
   return (
     <nav
       className={`fixed w-full top-0 z-50 transition-all duration-500 ${
@@ -62,7 +89,7 @@ export const Header: React.FC<Props> = ({ data }) => {
             onClick={() => setIsOpen(false)}
           >
             {data.logo && typeof data.logo === "object" && (
-              <div className="relative w-48 h-12">
+              <div className="relative w-48 h-18">
                 <Image
                   src={data.logo.url || "/img/logo-1.png"}
                   alt={data.logo.alt || "Logo"}
@@ -95,15 +122,50 @@ export const Header: React.FC<Props> = ({ data }) => {
               ))}
             </div>
 
-            {/* CTA Button */}
-            {data.ctaButton?.enable && (
-              <div>
-                <Link
-                  href={data.ctaButton.link || "#"}
-                  className="ml-4 px-6 py-2.5 rounded-full bg-gradient-to-r from-red-600 to-red-800 text-white text-sm font-bold hover:from-red-700 hover:to-red-900 transition-all duration-300 shadow-lg hover:shadow-red-500/20 border border-red-500/20"
-                >
-                  {data.ctaButton.text}
-                </Link>
+            {/* Social Links Divider */}
+            {enabledSocialLinks.length > 0 && (
+              <div className="w-px h-6 bg-red-900/30 mx-4"></div>
+            )}
+
+            {/* Social Media Icons */}
+            {enabledSocialLinks.length > 0 && (
+              <div className="flex items-center gap-4">
+                {enabledSocialLinks.map((social, index) => {
+                  const IconComponent =
+                    socialIcons[social.platform as keyof typeof socialIcons];
+                  return (
+                    <a
+                      key={index}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${
+                        scrolled ? "text-white" : "text-red-500"
+                      } hover:text-red-500 transition-all duration-300 p-2`}
+                    >
+                      <IconComponent className="w-6 h-6" />
+                    </a>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* CTA Buttons */}
+            {enabledButtons.length > 0 && (
+              <div className="flex items-center gap-2">
+                {enabledButtons.map((button, index) => (
+                  <Link
+                    key={index}
+                    href={button.link}
+                    className={`px-6 py-2.5 rounded-full text-white text-sm font-bold hover:from-red-700 hover:to-red-900 transition-all duration-300 shadow-lg hover:shadow-red-500/20 border border-red-500/20 ${
+                      button.type === "primary"
+                        ? "bg-gradient-to-r from-red-600 to-red-800"
+                        : "bg-gradient-to-r from-gray-600 to-gray-800 hover:from-gray-700 hover:to-gray-900"
+                    }`}
+                  >
+                    {button.text}
+                  </Link>
+                ))}
               </div>
             )}
           </div>
@@ -169,15 +231,53 @@ export const Header: React.FC<Props> = ({ data }) => {
                   </Link>
                 ))}
 
-                {data.ctaButton?.enable && (
+                {/* Mobile CTA Buttons */}
+                {enabledButtons.map((button, index) => (
                   <Link
-                    href={data.ctaButton.link || "#"}
-                    className="block px-6 py-5 rounded-xl bg-gradient-to-r from-red-600 to-red-800 text-white text-center text-xl font-bold shadow-lg border border-red-500/30 mt-6 hover:from-red-700 hover:to-red-900 transition-all duration-300"
+                    key={index}
+                    href={button.link}
+                    className={`block px-6 py-5 rounded-xl text-white text-center text-xl font-bold shadow-lg border border-red-500/30 mt-6 transition-all duration-300 ${
+                      button.type === "primary"
+                        ? "bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900"
+                        : "bg-gradient-to-r from-gray-600 to-gray-800 hover:from-gray-700 hover:to-gray-900"
+                    }`}
                     onClick={() => setIsOpen(false)}
                   >
-                    {data.ctaButton.text}
+                    {button.text}
                   </Link>
-                )}
+                ))}
+              </div>
+
+              {/* Mobile Social Links */}
+              {enabledSocialLinks.length > 0 && (
+                <div className="flex justify-center gap-8 py-8 border-t border-red-900/30">
+                  {enabledSocialLinks.map((social, index) => {
+                    const IconComponent =
+                      socialIcons[social.platform as keyof typeof socialIcons];
+                    return (
+                      <a
+                        key={index}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white hover:text-red-500 transition-all duration-300 p-4 bg-red-900/20 rounded-lg border border-red-800/30 hover:border-red-500/50"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <IconComponent className="w-7 h-7" />
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Mobile Footer */}
+              <div className="text-center pb-8">
+                <div className="text-white text-base font-light tracking-wide mb-2">
+                  Instituto de Fotografía del Noroeste
+                </div>
+                <div className="text-red-400 text-sm">
+                  Educación fotográfica de élite
+                </div>
               </div>
             </div>
           </div>

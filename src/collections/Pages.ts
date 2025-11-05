@@ -6,6 +6,12 @@ import { CursoUnoBlock } from "../blocks/CursoUno/config";
 import { CursoDosBlock } from "../blocks/CursoDos/config";
 import { CursoTresBlock } from "../blocks/CursoTres/config";
 import { GaleriaBlock } from "@/blocks/Galeria/config";
+import { CursosPrivadosBlock } from "@/blocks/CursosPrivados/config";
+import { BannerBlock } from "@/blocks/Banner/config";
+import { CallToActionBlock } from "@/blocks/CallToAction/config";
+import { HighImpactHeroBlock } from "../blocks/HighImpactHero/config";
+import { MediumImpactHeroBlock } from "../blocks/MediumImpactHero/config";
+import { LowImpactHeroBlock } from "../blocks/LowImpactHero/config";
 
 export const Pages: CollectionConfig = {
   slug: "pages",
@@ -59,6 +65,7 @@ export const Pages: CollectionConfig = {
       required: true,
       label: "Título de la Página",
     },
+
     {
       name: "slug",
       type: "text",
@@ -102,6 +109,12 @@ export const Pages: CollectionConfig = {
         CursoDosBlock,
         CursoTresBlock,
         GaleriaBlock,
+        CursosPrivadosBlock,
+        BannerBlock,
+        CallToActionBlock,
+        HighImpactHeroBlock,
+        MediumImpactHeroBlock,
+        LowImpactHeroBlock,
       ],
     },
     {

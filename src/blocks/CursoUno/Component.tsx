@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import type { CursoUnoBlock as CursoUnoBlockType } from "@/types/blocks";
+import RichText from "@/components/RichText";
 
 export const CursoUnoBlockComponent: React.FC<CursoUnoBlockType> = (props) => {
   const {
@@ -20,7 +21,7 @@ export const CursoUnoBlockComponent: React.FC<CursoUnoBlockType> = (props) => {
     courseInfo,
     syllabus,
     requirements,
-    paymentMethods,
+    richText,
     location,
     additionalInfo,
     enrollmentLink,
@@ -91,10 +92,10 @@ export const CursoUnoBlockComponent: React.FC<CursoUnoBlockType> = (props) => {
                     Temario
                   </TabsTrigger>
                   <TabsTrigger
-                    value="Pago"
+                    value="Detalles"
                     className="data-[state=active]:bg-red-600 data-[state=active]:text-white text-gray-300 hover:text-white transition-all flex items-center gap-2"
                   >
-                    Pago
+                    Detalles
                   </TabsTrigger>
                 </TabsList>
 
@@ -121,7 +122,8 @@ export const CursoUnoBlockComponent: React.FC<CursoUnoBlockType> = (props) => {
                       <div>
                         <h3 className="text-white font-semibold">Horario</h3>
                         <p className="text-gray-300">
-                          {courseInfo?.schedule || "MIÉRCOLES | 6:00 PM - 9:00 PM"}
+                          {courseInfo?.schedule ||
+                            "MIÉRCOLES | 6:00 PM - 9:00 PM"}
                         </p>
                       </div>
                     </div>
@@ -133,7 +135,10 @@ export const CursoUnoBlockComponent: React.FC<CursoUnoBlockType> = (props) => {
                       <div>
                         <h3 className="text-white font-semibold">Instructor</h3>
                         <a
-                          href={courseInfo?.instructor?.link || "https://www.caneckleyva.com"}
+                          href={
+                            courseInfo?.instructor?.link ||
+                            "https://www.caneckleyva.com"
+                          }
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-gray-300 hover:text-red-400 transition-colors flex items-center gap-1"
@@ -196,78 +201,24 @@ export const CursoUnoBlockComponent: React.FC<CursoUnoBlockType> = (props) => {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="Pago" className="space-y-4">
-                  <div className="bg-black/50 rounded-lg border border-red-900/30 p-6">
+                <TabsContent value="Detalles" className="space-y-4">
+                  <div className="bg-black/50 rounded-lg text-white  border border-red-900/30 p-6">
                     <h3 className="text-white font-bold text-xl mb-6 text-center">
-                      Pago
+                      Detalles
                     </h3>
 
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="text-red-400 font-semibold mb-3">
-                          Transferencias: {paymentMethods?.bankTransfer?.bankName || "Santander"}
-                        </h4>
-                        <div className="space-y-2 text-gray-300">
-                          <p>
-                            <strong>Titular:</strong> {paymentMethods?.bankTransfer?.accountHolder || "Caneck Leyva López"}
-                          </p>
-                          <p>
-                            <strong># de Cuenta:</strong> {paymentMethods?.bankTransfer?.accountNumber || "20-00636037-5"}
-                          </p>
-                          <p>
-                            <strong>CLABE:</strong> {paymentMethods?.bankTransfer?.clabe || "014028200063603759"}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="border-t border-red-900/30 pt-4">
-                        <h4 className="text-red-400 font-semibold mb-3">
-                          Depósitos en Oxxo: {paymentMethods?.bankTransfer?.bankName || "Santander"}
-                        </h4>
-                        <div className="space-y-2 text-gray-300">
-                          <p>
-                            <strong>Número de tarjeta:</strong> {paymentMethods?.oxxo?.cardNumber || "5579 0990 1896 2458"}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="border-t border-red-900/30 pt-4">
-                        <h4 className="text-red-400 font-semibold mb-3">
-                          PayPal:
-                        </h4>
-                        <div className="space-y-2 text-gray-300">
-                          <a
-                            href={paymentMethods?.paypal?.link || "https://www.paypal.me/ifntijuana"}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-300 hover:text-red-400 transition-colors flex items-center gap-1"
-                          >
-                            {paymentMethods?.paypal?.link || "www.paypal.me/ifntijuana"}
-                            <ExternalLink className="w-4 h-4" />
-                          </a>
-                        </div>
-                      </div>
-
-                      <div className="border-t border-red-900/30 pt-4">
-                        <h4 className="text-red-400 font-semibold mb-3">
-                          Zelle:
-                        </h4>
-                        <div className="space-y-2 text-gray-300">
-                          <p>
-                            <strong>Correo:</strong> {paymentMethods?.zelle?.email || "valeystudio@gmail.com"}
-                          </p>
-                            <p>
-                            <strong>Nombre:</strong> {paymentMethods?.zelle?.name || "Leyva Lopez Services"}
-                          </p>
-                        </div>
-                      </div>
+                    <div className="space-y-6 max-h-screen overflow-y-auto">
+                      <RichText data={richText} enableGutter={false} />
                     </div>
                   </div>
                 </TabsContent>
               </Tabs>
 
               <a
-                href={enrollmentLink || "https://docs.google.com/forms/d/e/1FAIpQLSdUTHwozSYrhiSyvZEMlwGHnOPACZDLzW18Eu9TrvXII2Fa5w/viewform"}
+                href={
+                  enrollmentLink ||
+                  "https://docs.google.com/forms/d/e/1FAIpQLSdUTHwozSYrhiSyvZEMlwGHnOPACZDLzW18Eu9TrvXII2Fa5w/viewform"
+                }
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -301,7 +252,9 @@ export const CursoUnoBlockComponent: React.FC<CursoUnoBlockType> = (props) => {
                 <div
                   className="aspect-video bg-gray-800 flex items-center justify-center"
                   dangerouslySetInnerHTML={{
-                    __html: location?.mapEmbed || '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3365.366977773557!2d-116.9304915!3d32.489619399999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d939fdebea43a9%3A0x7a575067983e700e!2sAurora%20Offices%20%2B%20Coworking!5e0!3m2!1ses-419!2smx!4v1760048976848!5m2!1ses-419!2smx" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>',
+                    __html:
+                      location?.mapEmbed ||
+                      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3365.366977773557!2d-116.9304915!3d32.489619399999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d939fdebea43a9%3A0x7a575067983e700e!2sAurora%20Offices%20%2B%20Coworking!5e0!3m2!1ses-419!2smx!4v1760048976848!5m2!1ses-419!2smx" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>',
                   }}
                 />
               </div>

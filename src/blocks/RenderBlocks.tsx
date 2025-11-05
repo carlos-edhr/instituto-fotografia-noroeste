@@ -14,6 +14,12 @@ import { CursoTresBlockComponent } from "./CursoTres/Component";
 //   CursoTresBlock,
 // } from "@/types/blocks";
 import { GaleriaBlockComponent } from "./Galeria/Component";
+import CursosPrivadosComponent from "./CursosPrivados/component";
+import BannerBlockComponent from "./Banner/Component";
+import CallToActionBlockComponent from "./CallToAction/Component";
+import HighImpactHeroComponent from "./HighImpactHero/Component";
+import MediumImpactHeroComponent from "./MediumImpactHero/Component";
+import LowImpactHeroComponent from "./LowImpactHero/Component";
 
 type Block = HeroBlock | ContentBlock | MediaBlock;
 
@@ -78,7 +84,22 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             case "curso-tres":
               return <CursoTresBlockComponent key={key} {...block} />;
             case "galeria":
-              return <GaleriaBlockComponent key={key} {...block} />; // ← Agregué key aquí
+              return <GaleriaBlockComponent key={key} {...block} />;
+            case "CursosPrivados":
+              return <CursosPrivadosComponent key={index} {...block} />;
+            case "Banner":
+              return <BannerBlockComponent key={index} {...block} />;
+
+            case "CallToAction":
+              return <CallToActionBlockComponent key={index} {...block} />;
+
+            case "HighImpactHero":
+              return <HighImpactHeroComponent key={index} {...block} />;
+            case "MediumImpactHero":
+              return <MediumImpactHeroComponent key={index} {...block} />;
+            case "LowImpactHero":
+              return <LowImpactHeroComponent key={index} {...block} />;
+
             default:
               console.warn(`Tipo de bloque desconocido: ${block.blockType}`);
               return null;

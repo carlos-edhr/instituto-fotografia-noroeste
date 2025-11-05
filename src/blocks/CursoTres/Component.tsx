@@ -2,6 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import RichText from "@/components/RichText";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Calendar,
@@ -27,7 +28,7 @@ export const CursoTresBlockComponent: React.FC<CursoTresBlockType> = (
     courseInfo,
     syllabus,
     learningPoints,
-    paymentMethods,
+    detalles,
     location,
     enrollmentLink,
   } = props;
@@ -184,14 +185,14 @@ export const CursoTresBlockComponent: React.FC<CursoTresBlockType> = (
                 <TabsList className="grid w-full grid-cols-2 mb-8 bg-black/50 border border-red-900/30 p-1 rounded-lg">
                   <TabsTrigger
                     value="temario"
-                    className="data-[state=active]:bg-red-600 data-[state=active]:text-white transition-all flex items-center gap-2"
+                    className="data-[state=active]:bg-red-600 data-[state=active]:text-white  text-gray-300 hover:text-white transition-all flex items-center gap-2"
                   >
                     <Lightbulb className="w-4 h-4" />
                     Temario
                   </TabsTrigger>
                   <TabsTrigger
                     value="Pago"
-                    className="data-[state=active]:bg-red-600 data-[state=active]:text-white transition-all flex items-center gap-2"
+                    className="data-[state=active]:bg-red-600 data-[state=active]:text-white  text-gray-300 hover:text-white transition-all flex items-center gap-2"
                   >
                     <CreditCard className="w-4 h-4" />
                     Pago
@@ -279,110 +280,15 @@ export const CursoTresBlockComponent: React.FC<CursoTresBlockType> = (
                   </div>
                 </TabsContent>
 
-                <TabsContent value="Pago" className="space-y-6">
+                <TabsContent value="Detalles" className="space-y-6">
                   <div className="text-center mb-6">
-                    <h3 className="text-white font-bold text-xl mb-2">Pago</h3>
-                    <p className="text-gray-400 text-sm">
-                      Realiza tu pago mediante cualquiera de estos métodos
-                    </p>
+                    <h3 className="text-white font-bold text-xl mb-2">
+                      Detalles
+                    </h3>
                   </div>
 
-                  <div className="space-y-6">
-                    {/* Payment Methods Grid */}
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-4">
-                        <div className="bg-black/50 rounded-lg border border-red-900/30 p-4">
-                          <h4 className="text-red-400 font-semibold mb-3">
-                            Transferencias:{" "}
-                            {paymentMethods?.bankTransfer?.bankName ||
-                              "Santander"}
-                          </h4>
-                          <div className="space-y-2 text-gray-300 text-sm">
-                            <p>
-                              <strong>Titular:</strong>{" "}
-                              {paymentMethods?.bankTransfer?.accountHolder ||
-                                "Caneck Leyva López"}
-                            </p>
-                            <p>
-                              <strong># de Cuenta:</strong>{" "}
-                              {paymentMethods?.bankTransfer?.accountNumber ||
-                                "20-00636037-5"}
-                            </p>
-                            <p>
-                              <strong>CLABE:</strong>{" "}
-                              {paymentMethods?.bankTransfer?.clabe ||
-                                "014028200063603759"}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="bg-black/50 rounded-lg border border-red-900/30 p-4">
-                          <h4 className="text-red-400 font-semibold mb-3">
-                            PayPal
-                          </h4>
-                          <div className="space-y-2 text-gray-300">
-                            <a
-                              href={
-                                paymentMethods?.paypal?.link ||
-                                "https://www.paypal.me/ifntijuana"
-                              }
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-gray-300 hover:text-red-400 transition-colors flex items-center gap-1 text-sm"
-                            >
-                              {paymentMethods?.paypal?.link ||
-                                "www.paypal.me/ifntijuana"}
-                              <ExternalLink className="w-4 h-4" />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="space-y-4">
-                        <div className="bg-black/50 rounded-lg border border-red-900/30 p-4">
-                          <h4 className="text-red-400 font-semibold mb-3">
-                            Depósitos en Oxxo:{" "}
-                            {paymentMethods?.bankTransfer?.bankName ||
-                              "Santander"}
-                          </h4>
-                          <div className="space-y-2 text-gray-300 text-sm">
-                            <p>
-                              <strong>Número de tarjeta:</strong>
-                            </p>
-                            <p className="font-mono text-lg">
-                              {paymentMethods?.oxxo?.cardNumber ||
-                                "5579 0990 1896 2458"}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="bg-black/50 rounded-lg border border-red-900/30 p-4">
-                          <h4 className="text-red-400 font-semibold mb-3">
-                            Zelle
-                          </h4>
-                          <div className="space-y-2 text-gray-300 text-sm">
-                            <p>
-                              <strong>Correo:</strong>{" "}
-                              {paymentMethods?.zelle?.email ||
-                                "valeystudio@gmail.com"}
-                            </p>
-                            <p>
-                              <strong>Nombre:</strong>{" "}
-                              {paymentMethods?.zelle?.name ||
-                                "Leyva Lopez Services"}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Payment Notice */}
-                    <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 text-center">
-                      <p className="text-red-400 text-sm">
-                        ⚠️ Después de realizar tu pago, envía el comprobante al
-                        instructor para confirmar tu inscripción
-                      </p>
-                    </div>
+                  <div className="space-y-6 max-h-screen overflow-y-auto">
+                    <RichText data={detalles} enableGutter={false} />
                   </div>
                 </TabsContent>
               </Tabs>

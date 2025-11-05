@@ -37,30 +37,72 @@ export const Header: GlobalConfig = {
       ],
     },
     {
-      name: "ctaButton",
-      type: "group",
-      label: "Botón de Acción",
+      name: "socialLinks",
+      type: "array",
+      label: "Redes Sociales",
+      maxRows: 5,
       fields: [
+        {
+          name: "platform",
+          type: "select",
+          label: "Plataforma",
+          options: [
+            { label: "Instagram", value: "instagram" },
+            { label: "Facebook", value: "facebook" },
+            { label: "Email", value: "email" },
+            { label: "YouTube", value: "youtube" },
+            { label: "Twitter", value: "twitter" },
+            { label: "LinkedIn", value: "linkedin" },
+          ],
+          required: true,
+        },
+        {
+          name: "url",
+          type: "text",
+          label: "URL",
+          required: true,
+        },
         {
           name: "enable",
           type: "checkbox",
-          label: "Mostrar Botón",
+          label: "Habilitado",
+          defaultValue: true,
         },
+      ],
+    },
+    {
+      name: "ctaButtons",
+      type: "array",
+      label: "Botones de Acción",
+      maxRows: 3,
+      fields: [
         {
           name: "text",
           type: "text",
+          required: true,
           label: "Texto del Botón",
-          admin: {
-            condition: (data, siblingData) => siblingData?.enable,
-          },
         },
         {
           name: "link",
           type: "text",
-          label: "Enlace del Botón",
-          admin: {
-            condition: (data, siblingData) => siblingData?.enable,
-          },
+          required: true,
+          label: "Enlace",
+        },
+        {
+          name: "type",
+          type: "select",
+          label: "Tipo de Botón",
+          options: [
+            { label: "Primario", value: "primary" },
+            { label: "Secundario", value: "secondary" },
+          ],
+          defaultValue: "primary",
+        },
+        {
+          name: "enable",
+          type: "checkbox",
+          label: "Habilitado",
+          defaultValue: true,
         },
       ],
     },

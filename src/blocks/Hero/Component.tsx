@@ -8,6 +8,7 @@ import type { HeroBlock } from "@/types/blocks";
 export const HeroBlockComponent: React.FC<HeroBlock> = (props) => {
   const {
     title,
+    titleSecondPart,
     highlightedText,
     subtitle,
     backgroundImages = [],
@@ -103,17 +104,18 @@ export const HeroBlockComponent: React.FC<HeroBlock> = (props) => {
       {/* Contenido principal */}
       <div className="relative max-w-6xl mx-auto text-center flex flex-col justify-center flex-1 px-4 lg:px-8">
         <h1
-          className={`font-light relative z-10 text-5xl md:text-7xl ${textColorClass} text-center px-4 mt-12 md:mt-40`}
+          className={`font-light relative z-10 text-5xl md:text-7xl ${textColorClass} text-center px-4 mt-12 md:mt-20`}
         >
-          {title}
+          {/* TODO: ADD Second Title */}
+          {title}{" "}
           {highlightedText && (
             <>
-              {" "}
               <span ref={realityRef} className="inline-block text-red-500">
                 {highlightedText}
               </span>
             </>
-          )}
+          )}{" "}
+          {titleSecondPart}
           {subtitle && (
             <>
               <br />

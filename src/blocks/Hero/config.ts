@@ -17,7 +17,7 @@ export const HeroBlock: Block = {
           required: true,
           label: "Título Principal",
           admin: {
-            width: "50%",
+            width: "33%",
           },
         },
         {
@@ -25,8 +25,17 @@ export const HeroBlock: Block = {
           type: "text",
           label: "Texto Destacado",
           admin: {
-            width: "50%",
+            width: "33%",
             description: "Texto que aparece en rojo (ej: 'Fotografía')",
+          },
+        },
+        {
+          name: "titleSecondPart",
+          type: "text",
+          label: "Segunda Parte del Título",
+          admin: {
+            width: "33%",
+            description: "Texto que aparece después del texto destacado",
           },
         },
       ],

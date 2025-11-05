@@ -1,4 +1,10 @@
 import type { Block } from "payload";
+import {
+  FixedToolbarFeature,
+  HeadingFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+} from "@payloadcms/richtext-lexical";
 
 export const CursoDosBlock: Block = {
   slug: "curso-dos",
@@ -136,7 +142,7 @@ export const CursoDosBlock: Block = {
       name: "syllabus",
       type: "array",
       label: "Temario",
-      minRows: 5,
+      minRows: 1,
       maxRows: 10,
       fields: [
         {
@@ -163,89 +169,22 @@ export const CursoDosBlock: Block = {
         },
       ],
     },
-    // Métodos de pago
+    // Detalles del curso
     {
-      name: "paymentMethods",
-      type: "group",
-      label: "Métodos de Pago",
-      fields: [
-        {
-          name: "bankTransfer",
-          type: "group",
-          label: "Transferencia Bancaria",
-          fields: [
-            {
-              name: "bankName",
-              type: "text",
-              label: "Nombre del Banco",
-              defaultValue: "Santander",
-            },
-            {
-              name: "accountHolder",
-              type: "text",
-              label: "Titular",
-              defaultValue: "Caneck Leyva López",
-            },
-            {
-              name: "accountNumber",
-              type: "text",
-              label: "Número de Cuenta",
-              defaultValue: "20-00636037-5",
-            },
-            {
-              name: "clabe",
-              type: "text",
-              label: "CLABE",
-              defaultValue: "014028200063603759",
-            },
-          ],
+      name: "richText",
+      type: "richText",
+      required: false,
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4"] }),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ];
         },
-        {
-          name: "oxxo",
-          type: "group",
-          label: "Depósitos en Oxxo",
-          fields: [
-            {
-              name: "cardNumber",
-              type: "text",
-              label: "Número de Tarjeta",
-              defaultValue: "5579 0990 1896 2458",
-            },
-          ],
-        },
-        {
-          name: "paypal",
-          type: "group",
-          label: "PayPal",
-          fields: [
-            {
-              name: "link",
-              type: "text",
-              label: "Enlace de PayPal",
-              defaultValue: "https://www.paypal.me/ifntijuana",
-            },
-          ],
-        },
-        {
-          name: "zelle",
-          type: "group",
-          label: "Zelle",
-          fields: [
-            {
-              name: "email",
-              type: "text",
-              label: "Correo",
-              defaultValue: "valeystudio@gmail.com",
-            },
-            {
-              name: "name",
-              type: "text",
-              label: "Nombre",
-              defaultValue: "Leyva Lopez Services",
-            },
-          ],
-        },
-      ],
+      }),
+      label: "Detalles del Curso",
     },
     // Ubicación
     {

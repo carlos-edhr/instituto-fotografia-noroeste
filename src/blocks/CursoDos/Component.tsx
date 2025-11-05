@@ -17,6 +17,7 @@ import {
 import { motion } from "framer-motion";
 import Link from "next/link";
 import type { CursoDosBlock as CursoDosBlockType } from "@/types/blocks";
+import RichText from "@/components/RichText";
 
 const iconMap = {
   calendar: Calendar,
@@ -32,7 +33,7 @@ export const CursoDosBlockComponent: React.FC<CursoDosBlockType> = (props) => {
     mainContent,
     syllabus,
     requirements,
-    paymentMethods,
+    richText,
     location,
     enrollmentLink,
   } = props;
@@ -188,11 +189,11 @@ export const CursoDosBlockComponent: React.FC<CursoDosBlockType> = (props) => {
                     Temario
                   </TabsTrigger>
                   <TabsTrigger
-                    value="Pago"
+                    value="Detalles"
                     className="data-[state=active]:bg-red-600 data-[state=active]:text-white text-gray-300 hover:text-white transition-all flex items-center gap-2"
                   >
                     <CreditCard className="w-4 h-4" />
-                    Pago
+                    Detalles
                   </TabsTrigger>
                 </TabsList>
 
@@ -344,99 +345,14 @@ export const CursoDosBlockComponent: React.FC<CursoDosBlockType> = (props) => {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="Pago" className="space-y-6">
-                  <div className="bg-black/50 rounded-lg border border-red-900/30 p-6">
+                <TabsContent value="Detalles" className="space-y-6">
+                  <div className="bg-black/50 text-white rounded-lg border border-red-900/30 p-6">
                     <h3 className="text-white font-bold text-xl mb-6 text-center">
-                      Pago
+                      Detalles
                     </h3>
 
-                    <div className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="text-red-400 font-semibold mb-3">
-                            Transferencias:{" "}
-                            {paymentMethods?.bankTransfer?.bankName ||
-                              "Santander"}
-                          </h4>
-                          <div className="space-y-2 text-gray-300 text-sm">
-                            <p>
-                              <strong>Titular:</strong>{" "}
-                              {paymentMethods?.bankTransfer?.accountHolder ||
-                                "Caneck Leyva López"}
-                            </p>
-                            <p>
-                              <strong># de Cuenta:</strong>{" "}
-                              {paymentMethods?.bankTransfer?.accountNumber ||
-                                "20-00636037-5"}
-                            </p>
-                            <p>
-                              <strong>CLABE:</strong>{" "}
-                              {paymentMethods?.bankTransfer?.clabe ||
-                                "014028200063603759"}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div>
-                          <h4 className="text-red-400 font-semibold mb-3">
-                            Depósitos en Oxxo:{" "}
-                            {paymentMethods?.bankTransfer?.bankName ||
-                              "Santander"}
-                          </h4>
-                          <div className="space-y-2 text-gray-300 text-sm">
-                            <p>
-                              <strong>Número de tarjeta:</strong>
-                            </p>
-                            <p className="font-mono">
-                              {paymentMethods?.oxxo?.cardNumber ||
-                                "5579 0990 1896 2458"}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="border-t border-red-900/30 pt-4">
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <div>
-                            <h4 className="text-red-400 font-semibold mb-3">
-                              PayPal:
-                            </h4>
-                            <div className="space-y-2 text-gray-300">
-                              <a
-                                href={
-                                  paymentMethods?.paypal?.link ||
-                                  "https://www.paypal.me/ifntijuana"
-                                }
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-300 hover:text-red-400 transition-colors flex items-center gap-1 text-sm"
-                              >
-                                {paymentMethods?.paypal?.link ||
-                                  "www.paypal.me/ifntijuana"}
-                                <ExternalLink className="w-4 h-4" />
-                              </a>
-                            </div>
-                          </div>
-
-                          <div>
-                            <h4 className="text-red-400 font-semibold mb-3">
-                              Zelle:
-                            </h4>
-                            <div className="space-y-2 text-gray-300 text-sm">
-                              <p>
-                                <strong>Correo:</strong>{" "}
-                                {paymentMethods?.zelle?.email ||
-                                  "valeystudio@gmail.com"}
-                              </p>
-                              <p>
-                                <strong>Nombre:</strong>{" "}
-                                {paymentMethods?.zelle?.name ||
-                                  "Leyva Lopez Services"}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    <div className="space-y-6 max-h-screen overflow-y-auto">
+                      <RichText data={richText} enableGutter={false} />
                     </div>
                   </div>
                 </TabsContent>

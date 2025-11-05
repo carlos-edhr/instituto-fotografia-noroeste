@@ -37,6 +37,7 @@ export type HeroBlock = {
   id?: string | null;
   blockName?: string | null;
   title: string;
+  titleSecondPart?: string | null;
   highlightedText?: string | null;
   subtitle?: string | null;
   backgroundImages: {
@@ -100,24 +101,8 @@ export type CursoUnoBlock = {
     requirement: string;
     id?: string | null;
   }[];
-  paymentMethods?: {
-    bankTransfer?: {
-      bankName?: string | null;
-      accountHolder?: string | null;
-      accountNumber?: string | null;
-      clabe?: string | null;
-    };
-    oxxo?: {
-      cardNumber?: string | null;
-    };
-    paypal?: {
-      link?: string | null;
-    };
-    zelle?: {
-      email?: string | null;
-      name?: string | null;
-    };
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  richText?: any;
   location?: {
     mapEmbed?: string | null;
     address?: string | null;
@@ -166,24 +151,8 @@ export type CursoDosBlock = {
     requirement: string;
     id?: string | null;
   }[];
-  paymentMethods?: {
-    bankTransfer?: {
-      bankName?: string | null;
-      accountHolder?: string | null;
-      accountNumber?: string | null;
-      clabe?: string | null;
-    };
-    oxxo?: {
-      cardNumber?: string | null;
-    };
-    paypal?: {
-      link?: string | null;
-    };
-    zelle?: {
-      email?: string | null;
-      name?: string | null;
-    };
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  richText?: any;
   location?: {
     mapEmbed?: string | null;
     address?: string | null;
@@ -222,24 +191,8 @@ export type CursoTresBlock = {
     point: string;
     id?: string | null;
   }[];
-  paymentMethods?: {
-    bankTransfer?: {
-      bankName?: string | null;
-      accountHolder?: string | null;
-      accountNumber?: string | null;
-      clabe?: string | null;
-    };
-    oxxo?: {
-      cardNumber?: string | null;
-    };
-    paypal?: {
-      link?: string | null;
-    };
-    zelle?: {
-      email?: string | null;
-      name?: string | null;
-    };
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  detalles?: any;
   location?: {
     mapEmbed?: string | null;
     address?: string | null;
@@ -271,4 +224,183 @@ export type GaleriaBlock = {
     itemsPerPageMobile?: number | null;
   };
   footerText?: string | null;
+};
+
+export type HeaderType = {
+  navItems?: {
+    label: string;
+    link: string;
+    type?: "internal" | "external" | "section";
+    id?: string;
+  }[];
+  socialLinks?: {
+    platform:
+      | "instagram"
+      | "facebook"
+      | "email"
+      | "youtube"
+      | "twitter"
+      | "linkedin";
+    url: string;
+    enable?: boolean;
+    id?: string;
+  }[];
+  ctaButtons?: {
+    text: string;
+    link: string;
+    type?: "primary" | "secondary";
+    enable?: boolean;
+    id?: string;
+  }[];
+  logo: string | MediaType;
+  id?: string;
+  globalType?: "header";
+};
+
+export type CursosPrivadosBlockType = {
+  blockType: "CursosPrivados";
+  headerBadge: string;
+  headerTitle: string;
+  headerSubtitle: string;
+  headerDescription: string;
+  presencialDuration: string;
+  presencialDescription: string;
+  presencialPricing?: Array<{
+    students: string;
+    price: string;
+  }>;
+  presencialNote: string;
+  virtualDuration: string;
+  virtualDescription: string;
+  virtualPricing?: Array<{
+    students: string;
+    price: string;
+  }>;
+  asesoriasTitle: string;
+  asesoriasDescription: string;
+  asesoriaPresencialTitle: string;
+  asesoriaPresencialPrice: string;
+  asesoriaPresencialDescription: string;
+  asesoriaVirtualTitle: string;
+  asesoriaVirtualPrice: string;
+  asesoriaVirtualDescription: string;
+  contactTitle: string;
+  contactDescription: string;
+  email: string;
+  phone: string;
+  emailButtonText: string;
+  phoneButtonText: string;
+  footerNote: string;
+};
+
+export type BannerBlockType = {
+  blockType: "Banner";
+  style?: "info" | "warning" | "success" | "error";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  content: any;
+  enableCTA?: boolean;
+  ctaText?: string;
+  ctaLink?: string;
+};
+
+export type ArchiveBlockType = {
+  blockType: "ArchiveBlock";
+  header?: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    description?: string;
+  };
+  populateBy?: "collection" | "selection";
+  relationTo?: "posts" | "projects";
+  categories?: string[] | number[];
+  limit?: number;
+  selectedDocs?: string[] | number[];
+  displayStyle?: "grid" | "list";
+};
+
+export type CallToActionBlockType = {
+  blockType: "CallToAction";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  richText: any;
+  buttons?: Array<{
+    label: string;
+    link: string;
+    type: "primary" | "secondary" | "outline";
+    icon?: "none" | "arrowRight" | "calendar" | "phone" | "mail";
+  }>;
+  style?: {
+    background?: "gradient" | "solid" | "image";
+    alignment?: "center" | "left";
+  };
+};
+
+export type HighImpactHeroBlockType = {
+  blockType: "HighImpactHero";
+  id?: string | null;
+  blockName?: string | null;
+  header?: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    description?: string;
+  };
+  backgroundMedia?: {
+    backgroundImage: string | MediaType;
+    backgroundVideo?: string | MediaType | null;
+    overlayOpacity?: number;
+  };
+  ctaButtons?: Array<{
+    text: string;
+    link: string;
+    type: "primary" | "secondary";
+    icon?: "arrow" | "calendar" | "phone";
+  }>;
+  stats?: Array<{
+    number: string;
+    label: string;
+    suffix?: string;
+  }>;
+  styling?: {
+    minHeight?: "screen" | "75" | "50";
+    textAlignment?: "center" | "left";
+  };
+};
+
+export type MediumImpactHeroBlockType = {
+  blockType: "MediumImpactHero";
+  id?: string | null;
+  blockName?: string | null;
+  header?: {
+    badge?: string;
+    title?: string;
+    description?: string;
+  };
+  features?: Array<{
+    icon: "clock" | "calendar" | "user" | "award";
+    text: string;
+  }>;
+  ctaButton?: {
+    text?: string;
+    link?: string;
+  };
+  backgroundImage?: string | MediaType | null;
+};
+
+export type LowImpactHeroBlockType = {
+  blockType: "LowImpactHero";
+  id?: string | null;
+  blockName?: string | null;
+  header?: {
+    title?: string;
+    description?: string;
+  };
+  ctaButton?: {
+    text?: string;
+    link?: string;
+  };
+  styling?: {
+    background?: "gradient" | "solid";
+    textAlignment?: "center" | "left";
+  };
 };
